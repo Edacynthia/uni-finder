@@ -1,0 +1,56 @@
+/* ================================
+   Auth Page Styles
+   ================================ */
+
+.logo-gradient {
+    background: linear-gradient(
+        135deg,
+        #ff00cc 0%,
+        #ff9900 25%,
+        #66ff00 50%,
+        #00ffff 75%,
+        #cc00ff 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s linear infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+
+/* Glassmorphism form card */
+.form-glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+/* Neon glow effect */
+.glow {
+    box-shadow: 0 0 20px rgba(255, 0, 204, 0.4);
+    animation: pulseGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 0, 204, 0.4);
+    }
+    100% {
+        box-shadow:
+            0 0 40px rgba(0, 255, 255, 0.6),
+            0 0 70px rgba(102, 255, 0, 0.4);
+    }
+}
+
+/* Background gradient for auth pages */
+.hero-bg {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+}

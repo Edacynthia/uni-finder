@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    /* Custom fonts */
+    --font-syne: "Syne", var(--font-sans);
+    --font-chakra: "Chakra Petch", var(--font-sans);
+
+    /* Custom brand colors */
+    --color-brand-purple: #8b5cf6;
+    --color-brand-blue: #3b82f6;
+    --color-brand-pink: #ec4899;
+
+    /* Animations */
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-electric: electricGlow 1.5s ease-in-out infinite alternate;
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes electricGlow {
+        0%,
+        100% {
+            box-shadow: 0 0 10px var(--color-brand-purple),
+                0 0 20px var(--color-brand-purple);
+        }
+        50% {
+            box-shadow: 0 0 30px var(--color-brand-purple),
+                0 0 60px var(--color-brand-purple);
+        }
+    }
+  
+}
+
+  @utility font-syne {
+        font-family: var(--font-syne);
+    }
+    @utility font-chakra {
+        font-family: var(--font-chakra);
+    }
+
+/* Example class for electric card */
+.electric-card {
+    background: transparent;
+    border: 2px solid var(--color-brand-purple);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    color: white;
+    animation: var(--animate-electric);
+}
