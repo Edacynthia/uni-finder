@@ -17,9 +17,14 @@ class DashboardController extends Controller
     // Count products created by this marketer
     $activeProducts = $user->products()->count();
 
+     $favoriteCount = 0;
+    if ($user->marketerProfile) {
+        $favoriteCount = $user->marketerProfile->favoritedBy()->count();
+    }
+    
     $marketers = MarketerProfile::with('user')->latest()->take(9)->get();
 
-    return view('dashboard.marketer', compact('marketers', 'activeProducts'));
+    return view('dashboard.marketer', compact('marketers', 'activeProducts', 'favoriteCount'));
 }
     public function buyer()
     {

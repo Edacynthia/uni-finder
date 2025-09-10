@@ -160,29 +160,29 @@
                     </div>
                 </a>
 
-                <!-- My Orders Card -->
-                <a href="{{ route('dashboard.user') }}" class="dashboard-card card-secondary rounded-xl p-6 group">
-                    <div class="flex items-center mb-4">
-                        <div
-                            class="p-3 bg-purple-900 bg-opacity-20 rounded-full w-12 h-12 flex items-center justify-center mr-4">
-                            <svg xmlns="极速赛车开奖结果记录ttp://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                            </svg>
-                        </div>
-                        <h2 class="font-semibold text-lg text-white">My Orders</h2>
-                    </div>
-                    <p class="text-purple-200 text-sm">Track purchases and interactions</p>
-                    <div class="mt-4 flex justify-end">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-white transform group-hover:translate-x-1 transition-transform"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </div>
-                </a>
+                           <!-- My Favorites Card -->
+<a href="{{ route('favorites.index') }}" class="dashboard-card card-complaint rounded-xl p-6 group">
+    <div class="flex items-center mb-4">
+        <div
+            class="p-3 bg-purple-900 bg-opacity-20 rounded-full w-12 h-12 flex items-center justify-center mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 13l4 4L19 7" />
+            </svg>
+        </div>
+        <h2 class="font-semibold text-lg text-white">My Favorites</h2>
+    </div>
+    <p class="text-purple-200 text-sm">See all marketers you’ve saved</p>
+    <div class="mt-4 flex justify-end">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-white transform group-hover:translate-x-1 transition-transform"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+    </div>
+</a>
 
                 <!-- Saved Products Card -->
                 <a href="#" class="dashboard-card card-accent rounded-xl p-6 group">

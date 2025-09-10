@@ -5,12 +5,12 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MarketerController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
-
 
 
 
@@ -106,3 +106,12 @@ Route::delete('/admin/messages/{id}', [MessageController::class, 'destroy'])->na
 
 // Route::get('/admin/messages/{id}', [AdminDashboardController::class, 'showMessage'])->name('admin.messages.show');
 // Route::post('/admin/messages/{id}/resolve', [AdminDashboardController::class, 'markResolved'])->name('admin.messages.resolve');
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/favorites/{marketer}', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{marketer}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+});
+

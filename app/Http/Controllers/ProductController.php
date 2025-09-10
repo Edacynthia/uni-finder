@@ -42,7 +42,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'       => 'nullable|string|max:255',
+            'title'       => 'required|string|max:255', // made required for uniqueness
             'description' => 'required|string',
             'price'       => 'required|numeric',
             'image'       => 'nullable|image|max:2048',
@@ -54,8 +54,18 @@ class ProductController extends Controller
             abort(403, 'You must be a marketer with a profile to add products.');
         }
 
+        // 🔒 Prevent duplicate: same marketer + same title + same category
+        $existing = Product::where('marketer_id', Auth::id())
+            ->where('title', $validated['title'])
+            ->where('category_id', $validated['category_id'])
+            ->first();
+
+        if ($existing) {
+            return back()->with('error', 'You already added this product.');
+        }
+
         $product = new Product();
-        $product->title       = $validated['title'] ?? null;
+        $product->title       = $validated['title'];
         $product->description = $validated['description'];
         $product->price       = $validated['price'];
         $product->category_id = $validated['category_id'];
@@ -76,9 +86,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $profile = MarketerProfile::where('user_id', Auth::id())->first();
-       if ($product->marketer_id !== Auth::id() && !Auth::user()->hasRole('admin')) {
-    abort(403, 'Unauthorized action.');
-}
+        if ($product->marketer_id !== Auth::id() && !Auth::user()->hasRole('admin')) {
+            abort(403, 'Unauthorized action.');
+        }
 
 
         $categories = Category::all();
@@ -90,10 +100,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $profile = MarketerProfile::where('user_id', Auth::id())->first();
+        // $profile = MarketerProfile::where('user_id', Auth::id())->first();
         if ($product->marketer_id !== Auth::id() && !Auth::user()->hasRole('admin')) {
-    abort(403, 'Unauthorized action.');
-}
+            abort(403, 'Unauthorized action.');
+        }
 
         $validated = $request->validate([
             'title'       => 'nullable|string|max:255',
@@ -122,14 +132,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $profile = MarketerProfile::where('user_id', Auth::id())->first();
-      if ($product->marketer_id !== Auth::id() && !Auth::user()->hasRole('admin')) {
-    abort(403, 'Unauthorized action.');
-}
-
+        // $profile = MarketerProfile::where('user_id', Auth::id())->first();
+        if ($product->marketer_id !== Auth::id() && !Auth::user()->hasRole('admin')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $product->delete();
-
         return redirect()->route('marketer.products.index')->with('success', 'Product deleted successfully!');
     }
 }

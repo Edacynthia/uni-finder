@@ -30,5 +30,24 @@ public function products()
     return $this->hasMany(Product::class, 'marketer_id', 'user_id');
 }
 
+
+// Marketers saving other marketers
+public function favorites()
+{
+    return $this->belongsToMany(
+        MarketerProfile::class,
+        'favorites',
+        'user_id', // who is saving
+        'marketer_id'          // who is being saved
+    )->withTimestamps();
+}
+
+public function favoritedBy()
+{
+    return $this->belongsToMany(User::class, 'favorites', 'marketer_id', 'user_id')
+                ->withTimestamps();
+}
+
+
 }
 

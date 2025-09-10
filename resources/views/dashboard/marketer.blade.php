@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -282,49 +283,68 @@
 
         <!-- Stats Overview -->
         <div class="px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="stat-card rounded-xl p-4 flex items-center animate-slide-in" style="animation-delay: 0.1s;">
-    <div class="bg-purple-600 p-3 rounded-full mr-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-    </div>
-    <div>
-        <p class="text-2xl font-bold">{{ $activeProducts }}</p>
-        <p class="text-purple-300 text-sm">Active Products</p>
-    </div>
-</div>
-
-
-            <div class="stat-card rounded-xl p-4 flex items-center animate-slide-in" style="animation-delay: 0.2s;">
-                <div class="bg-purple-600 p-3 rounded-full mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-2xl font-bold">156</p>
-                    <p class="text-purple-300 text-sm">Total Customers</p>
-                </div>
-            </div>
-
-            <div class="stat-card rounded-xl p-4 flex items-center animate-slide-in" style="animation-delay: 0.3s;">
-                <div class="bg-purple-600 p-3 rounded-full mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-2xl font-bold">₦89,500</p>
-                    <p class="text-purple-300 text-sm">Monthly Revenue</p>
-                </div>
-            </div>
+    <a href="{{ route('marketer.products.index') }}" class="stat-card rounded-xl p-4 flex items-center animate-slide-in cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20" style="animation-delay: 0.1s;">
+        <div class="bg-purple-600 p-3 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V7H9V5.5L3 7V9L10 11V13H9L5 12V14L9 13.5V22H11V14.5L13 15V22H15V15L19 14.5V12L15 13H14V11L21 9Z"/>
+            </svg>
         </div>
+        <div>
+            <p class="text-2xl font-bold">{{ $activeProducts }}</p>
+            <p class="text-purple-300 text-sm">Active Products</p>
+        </div>
+    </a>
+
+    <div class="stat-card rounded-xl p-4 flex items-center animate-slide-in cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20" style="animation-delay: 0.2s;">
+        <div class="bg-purple-600 p-3 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 4a4 4 0 014 4 4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/>
+            </svg>
+        </div>
+        <div>
+            <p class="text-2xl font-bold">156</p>
+            <p class="text-purple-300 text-sm">Total Customers</p>
+        </div>
+    </div>
+
+    <div class="stat-card rounded-xl p-4 flex items-center animate-slide-in cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20" style="animation-delay: 0.3s;">
+        <div class="bg-purple-600 p-3 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+            </svg>
+        </div>
+        <div>
+            <p class="text-2xl font-bold">₦89,500</p>
+            <p class="text-purple-300 text-sm">Monthly Revenue</p>
+        </div>
+    </div>
+
+    <div class="stat-card rounded-xl p-4 flex items-center animate-slide-in cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20" style="animation-delay: 0.4s;">
+        <div class="bg-purple-600 p-3 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+        <div>
+            <p class="text-2xl font-bold">{{ $favoriteCount }}</p>
+            <p class="text-purple-300 text-sm">Users Saved Me</p>
+        </div>
+    </div>
+
+    <a href="{{ route('favorites.index') }}" class="stat-card rounded-xl p-4 flex items-center animate-slide-in cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20" style="animation-delay: 0.5s;">
+        <div class="bg-purple-600 p-3 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+        <div>
+            <p class="text-2xl font-bold">
+                {{ auth()->user()->favorites()->count() }}
+            </p>
+            <p class="text-purple-300 text-sm">Marketers I Saved</p>
+        </div>
+    </a>
+</div>
 
         <!-- Dashboard Content -->
         <div class="px-4 sm:px-6 lg:px-8 pb-8">

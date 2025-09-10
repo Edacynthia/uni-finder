@@ -118,6 +118,28 @@
                         <p class="text-gray-300 mt-4 italic">"{{ $marketer->bio }}"</p>
                     @endif
 
+                    {{-- @auth --}}
+    {{-- @if(auth()->user()->favorites->contains($marketer->id))
+        <!-- If already favorited -->
+        <form action="{{ route('favorites.remove', $marketer->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                ★ Remove from Favorites
+            </button>
+        </form>
+    @else
+        <!-- If not yet favorited -->
+        <form action="{{ route('favorites.add', $marketer->id) }}" method="POST">
+            @csrf
+            <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
+                ☆ Save to Favorites
+            </button>
+        </form>
+    @endif
+@endauth --}}
+
+
                     <div class="flex flex-col sm:flex-row gap-3 mt-6 justify-center sm:justify-start">
                         @if ($marketer->whatsapp)
                             <a href="https://wa.me/{{ $marketer->whatsapp }}" target="_blank"

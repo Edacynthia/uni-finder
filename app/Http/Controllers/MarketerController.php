@@ -13,12 +13,36 @@ class MarketerController extends Controller
     /**
      * Show all marketers.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Paginate all marketers with their user data
-        $marketers = MarketerProfile::with('user')->paginate(9);
+        $query = MarketerProfile::with('user');
+
+         if ($request->filled('search')) {
+        $search = $request->search;
+
+        $query->where(function ($q) use ($search) {
+            $q->whereHas('user', function ($sub) use ($search) {
+                $sub->where('name', 'like', "%{$search}%");
+            })
+            ->orWhere('business_name', 'like', "%{$search}%")
+            ->orWhere('bio', 'like', "%{$search}%");
+        });
+    }
+
+    $marketers = $query->paginate(9)->appends(['search' => $request->search]);
+
+     // Get array of marketer IDs that the current logged in user has saved
+    $userFavorites = [];
+    if (Auth::check()) {
+        // favorites() is the belongsToMany on User -> MarketerProfile
+       $userFavorites = Auth::user()
+    ->favorites()
+    ->pluck('marketer_profiles.id')
+    ->toArray();
+    }
        
-        return view('marketer.index', compact('marketers'));
+        return view('marketer.index', compact('marketers', 'userFavorites'));
     }
 
     /**

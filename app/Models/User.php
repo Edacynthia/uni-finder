@@ -57,4 +57,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class, 'marketer_id');
     }
+
+    public function favorites()
+{
+    return $this->belongsToMany(MarketerProfile::class, 'favorites', 'user_id', 'marketer_id')
+                ->withTimestamps();
+}
 }
