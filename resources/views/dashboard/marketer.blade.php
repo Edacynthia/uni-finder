@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -103,7 +102,6 @@
 </head>
 
 <body class="min-h-screen bg-gray-900 text-white font-chakra flex">
-    <!-- Removed old hamburger, only header hamburger remains -->
 
     <!-- Sidebar Navigation -->
     <div id="sidebar" class="sidebar w-64 bg-gray-800 h-full fixed overflow-y-auto md:translate-x-0 sidebar-hidden">

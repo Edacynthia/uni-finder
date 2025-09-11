@@ -115,17 +115,41 @@
         <!-- Include Navbar Component -->
         @include('components.navbar')
 
-        @if (session('success'))
-            <div class="mb-4 px-4 py-2 bg-purple-500 text-white rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="bg-red-600 text-white p-3 rounded mb-6">
-                {{ session('error') }}
-            </div>
-        @endif
+        @if(session('success'))
+                    <div id="success-alert" class="mb-6 px-4 py-3 bg-purple-600 text-white rounded-lg border border-purple-600 alert-message">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                {{ session('success') }}
+                            </div>
+                            <button type="button" onclick="dismissAlert('success-alert')" class="text-green-200 hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                @endif
+                
+                @if(session('error'))
+                    <div id="error-alert" class="mb-6 px-4 py-3 bg-red-700 text-white rounded-lg border border-red-500 alert-message">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                                {{ session('error') }}
+                            </div>
+                            <button type="button" onclick="dismissAlert('error-alert')" class="text-red-200 hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                @endif
 
         <!-- Main Content -->
         <div class="flex-1 w-full px-4 sm:px-6 lg:px-8 py-8">
@@ -361,5 +385,29 @@
                 }, 10);
             }
         }
+
+        // Dismiss alert function
+        function dismissAlert(alertId) {    
+            const alert = document.getElementById(alertId);
+            if (alert) {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(() => {
+                    alert.remove();
+                }, 500);
+            }
+        }
+
+        // Auto-dismiss alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const successAlert = document.getElementById('success-alert');
+                const errorAlert = document.getElementById('error-alert');
+                if (successAlert) dismissAlert('success-alert');
+                if (errorAlert) dismissAlert('error-alert');
+            }, 5000);
+        });
+
+        
     </script>
 @endsection

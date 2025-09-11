@@ -48,7 +48,7 @@ class User extends Authenticatable
         ];
     }
 
-       public function marketerProfile()
+    public function marketerProfile()
     {
         return $this->hasOne(MarketerProfile::class);
     }
@@ -59,8 +59,8 @@ class User extends Authenticatable
     }
 
     public function favorites()
-{
-    return $this->belongsToMany(MarketerProfile::class, 'favorites', 'user_id', 'marketer_id')
-                ->withTimestamps();
-}
+    {
+        return $this->belongsToMany(MarketerProfile::class, 'favorites', 'user_id', 'marketer_id')
+            ->withTimestamps();
+    }
 }

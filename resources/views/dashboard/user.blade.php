@@ -82,6 +82,14 @@
         <!-- Include Navbar Component -->
         @include('components.navbar')
 
+              @if (session('success'))
+                            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition
+                                class="bg-purple-500 text-white p-3 rounded mb-4">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
         <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6">
             <!-- Header Section -->
             <div class="mb-8">
@@ -101,8 +109,9 @@
                             </svg>
                         </div>
                     </div>
-                    <h3 class="text-xl font-semibold text-white">24</h3>
-                    <p class="text-purple-300 text-sm">Marketers Followed</p>
+                    <h3 class="text-xl font-semibold text-white">{{ $followedCount }}</h3>
+<p class="text-purple-300 text-sm">Marketers Saved</p>
+
                 </div>
 
                 <div class="stat-card rounded-xl p-5 text-center">
@@ -160,29 +169,28 @@
                     </div>
                 </a>
 
-                           <!-- My Favorites Card -->
-<a href="{{ route('favorites.index') }}" class="dashboard-card card-complaint rounded-xl p-6 group">
-    <div class="flex items-center mb-4">
-        <div
-            class="p-3 bg-purple-900 bg-opacity-20 rounded-full w-12 h-12 flex items-center justify-center mr-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M5 13l4 4L19 7" />
-            </svg>
-        </div>
-        <h2 class="font-semibold text-lg text-white">My Favorites</h2>
-    </div>
-    <p class="text-purple-200 text-sm">See all marketers you’ve saved</p>
-    <div class="mt-4 flex justify-end">
-        <svg xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 text-white transform group-hover:translate-x-1 transition-transform"
-            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
-    </div>
-</a>
+                <!-- My Favorites Card -->
+                <a href="{{ route('favorites.index') }}" class="dashboard-card card-complaint rounded-xl p-6 group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="p-3 bg-purple-900 bg-opacity-20 rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h2 class="font-semibold text-lg text-white">My Favorites</h2>
+                    </div>
+                    <p class="text-purple-200 text-sm">See all marketers you’ve saved</p>
+                    <div class="mt-4 flex justify-end">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-white transform group-hover:translate-x-1 transition-transform"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                </a>
 
                 <!-- Saved Products Card -->
                 <a href="#" class="dashboard-card card-accent rounded-xl p-6 group">
@@ -212,7 +220,7 @@
             <!-- Message Section -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                 {{-- message form --}}
-                <div class="dashboard-card card-complaint rounded-xl p-6">
+                <div class=" card-complaint rounded-xl p-6">
                     <h2 class="text-xl font-semibold text-white mb-6 flex items-center">
                         Send us a Message
                     </h2>
@@ -220,13 +228,7 @@
                     <form action="{{ route('messages.store') }}" method="POST">
                         @csrf
 
-                        @if (session('success'))
-                            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition
-                                class="bg-purple-600 text-white p-3 rounded mb-4">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
+                  
                         <!-- Name Field -->
                         <div class="mb-5">
                             <label class="block text-white font-medium mb-2">Your Name</label>
@@ -259,10 +261,37 @@
                             @enderror
                         </div>
 
+
+
                         <!-- Submit Button -->
-                        <button type="submit" class="w-full btn-primary text-white font-medium py-3 px-4 rounded-lg">
-                            Submit
+                        <button type="submit" x-data="{ loading: false }"
+                            x-on:click.prevent="
+        let form = $el.closest('form');
+        if (form.checkValidity()) {
+            loading = true;
+            form.submit();
+        } else {
+            form.reportValidity();
+        }
+    "
+                            class="w-full btn-primary text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center"
+                            :disabled="loading">
+                            <!-- Normal State -->
+                            <span x-show="!loading">Submit</span>
+
+                            <!-- Loading State -->
+                            <span x-show="loading" class="flex items-center">
+                                <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                                        stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
+                                    </path>
+                                </svg>
+                                Submitting...
+                            </span>
                         </button>
+
                     </form>
                 </div>
 
@@ -278,10 +307,20 @@
                                         d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
-                            <div>
-                                <p class="text-white">You followed <span class="text-purple-300">Campus Fashion</span></p>
-                                <p class="text-purple-400 text-sm">2 hours ago</p>
-                            </div>
+                            @if($lastFavorite)
+    <div>
+        <p class="text-white">
+            You saved 
+            <span class="text-purple-300">{{ $lastFavorite->user->name }}</span>
+        </p>
+        <p class="text-purple-400 text-sm">
+            {{ $lastFavorite->pivot->created_at->diffForHumans() }}
+        </p>
+    </div>
+@else
+    <p class="text-purple-400 text-sm">You haven’t followed any marketers yet.</p>
+@endif
+
                         </div>
                         <div class="flex items-center py-3 border-b border-gray-700">
                             <div class="bg-purple-900 rounded-full p-2 mr-4">
@@ -291,11 +330,26 @@
                                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                 </svg>
                             </div>
-                            <div>
-                                <p class="text-white">You saved <span class="text-purple-300">Vintage Denim Jacket</span>
-                                </p>
-                                <p class="text-purple-400 text-sm">1 day ago</p>
-                            </div>
+                         @if($lastSearch)
+    <div>
+        <p class="text-white">
+            You recently searched for
+            @if($lastSearch->query)
+                <span class="text-purple-300">"{{ $lastSearch->query }}"</span>
+            @endif
+            @if($lastSearch->category)
+                in <span class="text-purple-300">{{ $lastSearch->category->name }}</span>
+            @endif
+        </p>
+        <p class="text-purple-400 text-sm">{{ $lastSearch->updated_at->diffForHumans() }}</p>
+    </div>
+@else
+    <div>
+        <p class="text-white">You haven’t searched for anything yet.</p>
+    </div>
+@endif
+
+
                         </div>
                         <div class="flex items-center py-3">
                             <div class="bg-purple-900 rounded-full p-2 mr-4">
@@ -316,35 +370,45 @@
             </div>
 
             <!-- Recommended Marketers -->
-            <div>
-                <h2 class="text-xl font-semibold text-white mb-4 border-b border-purple-500 pb-2">Recommended For You</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-gray-800 bg-opacity-50 rounded-xl p-4 flex items-center">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80"
-                            class="w-12 h-12 rounded-full object-cover mr-4" alt="TechGadgets">
-                        <div>
-                            <h3 class="text-white font-medium">TechGadgets</h3>
-                            <p class="text-purple-300 text-sm">Electronics & Gadgets</p>
-                        </div>
-                        <button
-                            class="ml-auto bg-purple-700 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm transition">
-                            Follow
-                        </button>
-                    </div>
-                    <div class="bg-gray-800 bg-opacity-50 rounded-xl p-4 flex items-center">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80"
-                            class="w-12 h-12 rounded-full object-cover mr-4" alt="CampusFashion">
-                        <div>
-                            <h3 class="text-white font-medium">CampusFashion</h3>
-                            <p class="text-purple-300 text-sm">Clothing & Accessories</p>
-                        </div>
-                        <button
-                            class="ml-auto bg-purple-700 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm transition">
-                            Follow
-                        </button>
-                    </div>
+           <div>
+    <h2 class="text-xl font-semibold text-white mb-4 border-b border-purple-500 pb-2">Recommended For You</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        @foreach ($recommendedMarketers as $marketer)
+            @php
+                $isSaved = in_array($marketer->id, $userFavorites ?? []);
+            @endphp
+            <div class="bg-gray-800 bg-opacity-50 rounded-xl p-4 flex items-center">
+                <img src="{{ $marketer->user->profile_photo_url ?? 'https://via.placeholder.com/100' }}"
+                     class="w-12 h-12 rounded-full object-cover mr-4"
+                     alt="{{ $marketer->user->name }}">
+                <div>
+                    <h3 class="text-white font-medium">{{ $marketer->user->name }}</h3>
+                    <p class="text-purple-300 text-sm">{{ $marketer->business_type ?? 'Marketer' }}</p>
                 </div>
+
+                @if ($isSaved)
+                    <form action="{{ route('favorites.destroy', $marketer->id) }}" method="POST" class="ml-auto">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="ml-auto bg-purple-900 hover:bg-purple-700 text-white px-3 py-1 rounded-lg text-sm transition">
+                            Unfavorite
+                        </button>
+                    </form>
+                @else
+                    <form action="{{ route('favorites.store', $marketer->id) }}" method="POST" class="ml-auto">
+                        @csrf
+                        <button type="submit"
+                            class="ml-auto bg-purple-700 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm transition">
+                            Favorite
+                        </button>
+                    </form>
+                @endif
             </div>
+        @endforeach
+    </div>
+</div>
+
         </div>
 
         <script>
@@ -357,7 +421,8 @@
                         if (messageField.value.trim().length < 10) {
                             e.preventDefault();
                             alert(
-                                'Please provide a more detailed description of your complaint (at least 10 characters).');
+                                'Please provide a more detailed description of your complaint (at least 10 characters).'
+                            );
                             messageField.focus();
                         }
                     });

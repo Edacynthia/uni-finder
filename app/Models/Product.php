@@ -32,10 +32,8 @@ class Product extends Model
     }
 
     // Product.php
-public function marketerProfile()
-{
-    return $this->hasOne(MarketerProfile::class, 'user_id', 'marketer_id'); 
+    public function marketerProfile()
+    {
+        return $this->hasOne(MarketerProfile::class, 'user_id', 'marketer_id');
+    }
 }
-
-}
-

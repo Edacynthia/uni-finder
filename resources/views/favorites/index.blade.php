@@ -100,7 +100,7 @@
                 </div>
 
                 @if(session('success'))
-                    <div id="success-alert" class="mb-6 px-4 py-3 bg-green-700 text-white rounded-lg border border-green-500 alert-message">
+                    <div id="success-alert" class="mb-6 px-4 py-3 bg-purple-600 text-white rounded-lg border border-purple-600 alert-message">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
